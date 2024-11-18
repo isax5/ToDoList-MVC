@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using ToDo.Data;
 
 namespace ToDo.Controllers
 {
-    public class ToDoController : Controller
+    public class AuthorController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ToDoController(ApplicationDbContext context)
+        public AuthorController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // Displays the list of to-do items
-        public IActionResult Index() => View(_context.ToDos.ToList());
+        // Displays the list of Authors
+        public IActionResult Index() => View(_context.Authors.ToList());
 
         #region Create
 

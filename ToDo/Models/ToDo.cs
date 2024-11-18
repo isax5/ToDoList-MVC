@@ -4,7 +4,6 @@ namespace ToDo.Models
 {
     public class ToDo
     {
-
         [Key]
         public int Id { get; set; }
 
