@@ -1,0 +1,30 @@
+@model Book
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<div class="alert alert-Danger">
+    <h4>To Do</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author.Name)
+        </dd>
+    </dl>
+</div>
+
+<form asp-action="Delete">
+    <input type="submit" value="Delete" class="btn btn-danger"></input> |
+    <a asp-action="Index" class="btn btn-info ">Back to List</a>
+</form>

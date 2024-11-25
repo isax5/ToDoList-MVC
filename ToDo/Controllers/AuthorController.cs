@@ -24,16 +24,16 @@ namespace ToDo.Controllers
         // Handles the HTTP POST request to create a new Author item
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Author todo)
+        public IActionResult Create(Author author)
         {
             if (ModelState.IsValid)
             {
-                _context.Authors.Add(todo);
+                _context.Authors.Add(author);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(todo);
+            return View(author);
         }
 
         #endregion
