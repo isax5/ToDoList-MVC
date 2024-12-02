@@ -1,44 +1,33 @@
-using Microsoft.AspNetCore.Identity;
-// using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// Configuración de SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+// Agrega Identity (si lo necesitas)
+builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Registra los servicios de MVC (controladores y vistas)
 builder.Services.AddControllersWithViews();
+
+// Opcional: si usas Razor Pages también
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
+// Middleware
+app.UseStaticFiles(); // Para servir archivos estáticos (CSS, JS, etc.)
 app.UseRouting();
-
+app.UseAuthentication(); // Si tienes autenticación
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+// Rutas para controladores y Razor Pages
+app.MapDefaultControllerRoute();
+app.MapRazorPages(); // Si tienes Razor Pages
 
 app.Run();
