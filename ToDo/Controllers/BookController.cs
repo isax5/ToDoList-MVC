@@ -120,11 +120,11 @@ namespace ToDo.Controllers
         // Displays a confirmation page for deleting a specific Book item
         public IActionResult Delete(int id)
         {
-            var Book = _context.Books.Include(b => b.Author).FirstOrDefault(x => x.Id == id);
-            if (Book == null)
+            var book = _context.Books.Include(b => b.Author).FirstOrDefault(x => x.Id == id);
+            if (book == null)
                 return NotFound();
 
-            return View(Book);
+            return View(book);
         }
 
         // Handles the HTTP POST request to delete a specific Book item
@@ -140,7 +140,7 @@ namespace ToDo.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         #endregion

@@ -104,7 +104,7 @@ namespace ToDo.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         #endregion
